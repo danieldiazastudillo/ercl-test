@@ -1,6 +1,7 @@
 ﻿using ERCL.Prueba.Application;
 using ERCL.Prueba.Domain;
 using ERCL.Prueba.Domain.Interfaces.Helper;
+using ERCL.Prueba.Helpers;
 using ERCL.Prueba.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,10 +28,9 @@ namespace ERCL.Prueba.WebApi
 
             services.AddScoped<CardService>();
             services.AddScoped<IGenericRepository<Card>, GenericRepository<Card>>();
-            services.AddScoped<IFileProcesor, FileProcesor>();
+            services.AddScoped<IFileProcesor, FileProcesor>(); // Added FileProcessor from Helpers namespace
 
             
-
             services.AddSwaggerGen();
             services.AddDbContext<PruebaContext>(
                 options => options

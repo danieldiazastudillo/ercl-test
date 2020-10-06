@@ -1,4 +1,6 @@
-﻿namespace ERCL.Prueba.Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ERCL.Prueba.Domain
 {
     public class Card
     {
@@ -12,6 +14,12 @@
         public System.Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Pan { get; private set; }
-        public decimal Amount { get; set; }
+        public decimal Amount { get; set; } = 0;
+
+
+
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
     }
 }
