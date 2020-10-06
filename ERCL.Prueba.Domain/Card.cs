@@ -4,22 +4,26 @@ namespace ERCL.Prueba.Domain
 {
     public class Card
     {
-        public Card(string name, string pan)
+        public Card(string name, string pan, string pin)
         {
             Id = System.Guid.NewGuid();
             Name = name;
             Pan = pan;
+            Pin = pin;
         }
 
         public System.Guid Id { get; private set; }
+        
+        [Required]
         public string Name { get; private set; }
+
+        [Required]
         public string Pan { get; private set; }
         public decimal Amount { get; set; } = 0;
 
-
-
+        [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string Pin { get; set; }
 
     }
 }

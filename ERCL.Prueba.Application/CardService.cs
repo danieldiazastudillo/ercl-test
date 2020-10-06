@@ -19,9 +19,9 @@ namespace ERCL.Prueba.Application
 
         
 
-        public void Create(string name, string pan)
+        public void Create(string name, string pan, string pin)
         {
-            Repository.Insert(new Card(name, pan));
+            Repository.Insert(new Card(name, pan, pin));
             Repository.Save();
         }
 

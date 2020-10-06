@@ -15,10 +15,10 @@ namespace ERCL.Prueba.WebApi.Model.Card
 
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string Pin { get; set; }
 
         [DataType(DataType.Password)]        
-        [Compare("Password", ErrorMessage = "The passwords do not match")]
-        public string ConfirmPassword { get; set; }
+        [Compare("Pin", ErrorMessage = "The passwords do not match")]
+        public string ConfirmPin { get; set; }
     }
 }

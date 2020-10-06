@@ -17,10 +17,17 @@ namespace ERCL.Prueba.WebApi.Controllers
             CardService = cardService;
         }
 
-        [HttpPost]
-        public void Post([FromBody] CreateCardModel card)
+        [HttpPost("new")]
+        public IActionResult PostNewCard([FromBody] CreateCardModel card)
         {
-            CardService.Create(card.Name, card.Pan);            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            CardService.Create(card.Name, card.Pan, card.Pin);
+
+            return Ok($"Card named {card.Name} was successfully created");
         }
 
 
@@ -28,7 +35,7 @@ namespace ERCL.Prueba.WebApi.Controllers
         /// Retrieves ALL Cards 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("all")]
         public IActionResult GetAllCards()
         {
             var cards = CardService.GetAllCards();
@@ -41,7 +48,7 @@ namespace ERCL.Prueba.WebApi.Controllers
         /// </summary>
         /// <param name="id">GUID of a card</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("id/{id}")]
         public IActionResult GetCardByGuid(Guid id)
         {
 
@@ -69,7 +76,7 @@ namespace ERCL.Prueba.WebApi.Controllers
         /// <param name="id"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        [HttpPatch]
+        [HttpPatch("update/{id}/password")]
         public IActionResult UpdateCardPassword(Guid id, [FromBody] string password)
         {
             if (id == Guid.Empty || string.IsNullOrEmpty(password))
@@ -84,7 +91,7 @@ namespace ERCL.Prueba.WebApi.Controllers
                 return NotFound($"Card with ID {id} not found");
             }
 
-            card.Password = password;
+            card.Pin = password;
             CardService.UpdateCard(card);
 
             return Ok("Card password updated successfully");
@@ -97,7 +104,7 @@ namespace ERCL.Prueba.WebApi.Controllers
         /// <param name="id">GUID for Card</param>
         /// <param name="ammount">Ammount to sum up</param>
         /// <returns></returns>
-        [HttpPatch]
+        [HttpPatch("update/{id}/ammount")]
         public IActionResult AddAmmountToCard(Guid id, [FromBody] decimal ammount)
         {
             if (id == Guid.Empty)
