@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ERCL.Prueba.Application\ERCL.Prueba.Application.csproj" />
+    <ProjectReference Include="..\ERCL.Prueba.Domain\ERCL.Prueba.Domain.csproj" />
+    <ProjectReference Include="..\ERCL.Prueba.Helpers\ERCL.Prueba.Helpers.csproj" />
+    <ProjectReference Include="..\ERCL.Prueba.Repository\ERCL.Prueba.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
