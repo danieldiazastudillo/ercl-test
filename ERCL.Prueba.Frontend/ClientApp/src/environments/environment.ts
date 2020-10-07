@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   API_BASE_URL: 'https://localhost:5001',
-  CARD_DATA_BASE_URL: 'api/card'
+  CARD_DATA_BASE_URL: 'api/card',
+  CSV_ENDPOINT: 'action/download'
 };
 
 /*

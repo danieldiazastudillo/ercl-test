@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Card } from '../model/card.interface';
 import { CardService } from '../services/card.service';
 
@@ -13,7 +13,8 @@ export class CardChangeAmmountComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _cardSvc: CardService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _router: Router
   ) {}
 
   cardID: string;
@@ -24,14 +25,14 @@ export class CardChangeAmmountComponent implements OnInit {
 
   private _createForm(): FormGroup {
     const obj: FormGroup = this._fb.group({
-      ammount: [null, [Validators.required]],
+      ammount: [0, [Validators.required]],
     });
 
     return obj;
   }
 
   private _formBinder(form: FormGroup): void {
-    this.ammount = form.get('pin');
+    this.ammount = form.get('ammount');
   }
 
   private _getCardCurrentInfo(id: string): void {
@@ -45,6 +46,7 @@ export class CardChangeAmmountComponent implements OnInit {
 
     this._cardSvc.patchCardAmmount(this.cardID, newAmmount).subscribe(result => {
       console.log('Card saved!');
+      console.log(result);
       this._getCardCurrentInfo(this.cardID);
     });
 

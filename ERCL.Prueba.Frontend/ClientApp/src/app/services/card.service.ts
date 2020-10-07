@@ -52,8 +52,13 @@ export class CardService {
    * @param pin New Card PIN
    */
   patchCardPin(id: string, pin: string): Observable<Card> {
-    const queryUrl = `${this._apiUrl}/${this._cardDataEndpoint}/update/${id}/pin`;
-    return this._http.patch<Card>(queryUrl, { pin: pin });
+    const queryUrl = `${this._apiUrl}/${this._cardDataEndpoint}/update/pin/${id}`;
+
+    const obj = {
+      pin: pin
+    };
+
+    return this._http.patch<Card>(queryUrl, obj);
   }
 
 
@@ -63,8 +68,13 @@ export class CardService {
    * @param ammount Ammount to SUM (arithmetic) to current ammount (can be negative or zero)
    */
   patchCardAmmount(id: string, ammount: number): Observable<Card> {
-    const queryUrl = `${this._apiUrl}/${this._cardDataEndpoint}/update/${id}/ammount`;
-    return this._http.patch<Card>(queryUrl, { ammount: ammount });
+    const queryUrl = `${this._apiUrl}/${this._cardDataEndpoint}/update/ammount/${id}`;
+
+    const obj = {
+      ammount: ammount
+    };
+
+    return this._http.patch<Card>(queryUrl, obj);
   }
 
 }

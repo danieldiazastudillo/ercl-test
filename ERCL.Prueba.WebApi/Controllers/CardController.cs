@@ -27,7 +27,7 @@ namespace ERCL.Prueba.WebApi.Controllers
 
             CardService.Create(card.Name, card.Pan, card.Pin);
 
-            return Ok($"Card named {card.Name} was successfully created");
+            return Ok();
         }
 
 
@@ -48,7 +48,7 @@ namespace ERCL.Prueba.WebApi.Controllers
         /// </summary>
         /// <param name="id">GUID of a card</param>
         /// <returns></returns>
-        [HttpGet("id/{id}")]
+        [HttpGet("id/{id:guid}")]
         public IActionResult GetCardByGuid(Guid id)
         {
 
@@ -76,10 +76,10 @@ namespace ERCL.Prueba.WebApi.Controllers
         /// <param name="id">Card GUID</param>
         /// <param name="pin">New Card PIN</param>
         /// <returns>Patched Card Entity</returns>
-        [HttpPatch("update/{id}/pin")]
-        public IActionResult UpdateCardPassword(Guid id, [FromBody] string pin)
+        [HttpPatch("update/pin/{id}")]
+        public IActionResult UpdateCardPassword(Guid id, [FromBody] PinDTO model)
         {
-            if (id == Guid.Empty || string.IsNullOrEmpty(pin))
+            if (id == Guid.Empty || string.IsNullOrEmpty(model.Pin))
             {
                 return BadRequest("Invalid arguments. Check request parameters.");
             }
@@ -91,7 +91,7 @@ namespace ERCL.Prueba.WebApi.Controllers
                 return NotFound($"Card with ID {id} not found");
             }
 
-            card.Pin = pin;
+            card.Pin = model.Pin;
             CardService.UpdateCard(card);
 
             return Ok(card);
@@ -104,8 +104,8 @@ namespace ERCL.Prueba.WebApi.Controllers
         /// <param name="id">GUID for Card</param>
         /// <param name="ammount">Ammount to sum up</param>
         /// <returns></returns>
-        [HttpPatch("update/{id}/ammount")]
-        public IActionResult AddAmmountToCard(Guid id, [FromBody] decimal ammount)
+        [HttpPatch("update/ammount/{id}")]
+        public IActionResult AddAmmountToCard(Guid id, [FromBody] AmmountDTO model)
         {
             if (id == Guid.Empty)
             {
@@ -120,7 +120,7 @@ namespace ERCL.Prueba.WebApi.Controllers
             }
 
             // ADDS new value (doesn't replace)
-            card.Amount += ammount;
+            card.Amount += model.Ammount;
 
             CardService.UpdateCard(card);
 
@@ -137,4 +137,14 @@ namespace ERCL.Prueba.WebApi.Controllers
             return File(Encoding.ASCII.GetBytes(CardService.CsvEncriptedFile()), "text/csv", "encriptedfile.csv");
         }
     }
+
+    public class PinDTO
+    {
+        public string Pin { get; set; }
+    };
+
+    public class AmmountDTO
+    {
+        public decimal Ammount { get; set; }
+    };
 }

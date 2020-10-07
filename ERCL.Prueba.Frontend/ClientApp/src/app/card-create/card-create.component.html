@@ -1,3 +1,83 @@
-<p>
-  card-create works!
-</p>
+<div class="row">
+
+<div class="col-5 mx-auto mt-5">
+  <div class="card shadow">
+    <div class="card-header">
+      NEW CARD
+    </div>
+    <div class="card-body">
+      <form [formGroup]="cardForm" (submit)="submitCard()" novalidate>
+        <div class="form-group">
+          <label for="name">Card Name*</label>
+
+          <input type="text"
+                 class="form-control"
+                 formControlName="name"
+                 [class.is-valid]="name.valid"
+                 [class.is-invalid]="name.invalid && name.touched"
+                 required>
+        </div>
+
+        <div class="form-group">
+          <label for="name">PAN*</label>
+
+          <input type="text"
+                 class="form-control"
+                 formControlName="pan"
+                 [class.is-valid]="pan.valid"
+                 [class.is-invalid]="pan.invalid && pan.touched"
+                 required>
+        </div>
+
+        <div class="form-group">
+          <label for="name">PIN*</label>
+
+          <input type="password"
+                 class="form-control"
+                 formControlName="pin"
+                 [class.is-valid]="pin.valid"
+                 [class.is-invalid]="pin.invalid && pin.touched"
+                 required>
+          <small id="passwordHelpBlock" class="form-text text-muted">
+            Only 4 numbers (digits)
+          </small>
+
+          <div class="invalid-feedback" *ngIf="pin.invalid && (pin.dirty || pin.touched)">
+            <p class="my-0" *ngIf="pin.errors.required">PIN is required</p>
+            <p class="my-0" *ngIf="pin.errors.invalidPassword">Password is invalid</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Confirm PIN*</label>
+
+          <input type="password"
+                class="form-control"
+                 formControlName="confirmPin"
+                 [class.is-valid]="confirmPin.valid"
+                 [class.is-invalid]="confirmPin.invalid && confirmPin.touched"
+                 required>
+          <div class="invalid-feedback" *ngIf="confirmPin.invalid && (pin.dirty || confirmPin.touched)">
+             <p class="my-0" *ngIf="confirmPin.errors.required">Confirm PIN is required</p>
+             <p class="my-0" *ngIf="confirmPin.errors.matchOther">PINs are not matching</p>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mt-5" [disabled]="cardForm.invalid">SAVE NEW CARD</button>
+
+      </form>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+</div>
+
+<pre>
+
+  {{ cardForm.value | json }}
+
+</pre>

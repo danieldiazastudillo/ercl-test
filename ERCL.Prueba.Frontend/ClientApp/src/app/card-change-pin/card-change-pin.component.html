@@ -1,3 +1,52 @@
-<p>
-  card-change-pin works!
-</p>
+<div class="row">
+
+  <div class="col-5 mx-auto mt-5">
+    <div class="card shadow">
+      <div class="card-header">
+        UPDATE CARD PIN
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">{{currentCard?.name}}</h5>
+        <p class="card-text">{{currentCard?.id}}</p>
+        <p class="card-text"><strong>PAN:</strong> {{currentCard?.pan}}</p>
+      </div>
+
+      <div class="card-body">
+        <form [formGroup]="cardForm" (submit)="submitCard()" novalidate>
+
+          <div class="form-group">
+            <label for="name">New PIN*</label>
+
+            <input type="password"
+                   class="form-control"
+                   formControlName="pin"
+                   [class.is-valid]="pin.valid"
+                   [class.is-invalid]="pin.invalid && pin.touched"
+                   required>
+            <small id="passwordHelpBlock" class="form-text text-muted">
+              Only 4 numbers (digits)
+            </small>
+
+            <div class="invalid-feedback" *ngIf="pin.invalid && (pin.dirty || pin.touched)">
+              <p class="my-0" *ngIf="pin.errors.required">NEW PIN is required</p>
+              <p class="my-0" *ngIf="pin.errors.invalidPassword">PIN is invalid</p>
+            </div>
+          </div>
+
+
+          <button type="submit" class="btn btn-primary btn-block mt-5" [disabled]="cardForm.invalid">SAVE NEW PIN</button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+
+  <pre>
+
+    {{ cardForm.value | json }}
+
+  </pre>

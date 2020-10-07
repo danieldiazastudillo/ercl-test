@@ -1,3 +1,62 @@
-<p>
-  card-change-ammount works!
-</p>
+<div class="row">
+
+  <div class="col-5 mx-auto mt-5">
+    <div class="card shadow">
+      <div class="card-header">
+        UPDATE CARD AMMOUNT
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">{{currentCard?.name}}</h5>
+        <p class="card-text">{{currentCard?.id}}</p>
+        <p class="card-text"><strong>PAN:</strong> {{currentCard?.pan}}</p>
+
+        <p class="lead mt-2 text-center">Current Ammount</p>
+        <h4 class="text-center">{{currentCard?.amount | currency}}</h4>
+      </div>
+
+      <div class="card-body">
+        <form [formGroup]="cardForm" (submit)="submitCard()" novalidate>
+
+          <div class="form-group">
+            <label for="name">New PIN*</label>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+
+              <input type="number"
+                     class="form-control"
+                     formControlName="ammount"
+                     [class.is-valid]="ammount.valid"
+                     [class.is-invalid]="ammount.invalid && ammount.touched"
+                     required>
+
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+
+            <div class="invalid-feedback" *ngIf="ammount.invalid && (ammount.dirty || ammount.touched)">
+              <p class="my-0" *ngIf="ammount.errors.required">Ammount is required</p>
+            </div>
+          </div>
+
+
+          <button type="submit" class="btn btn-primary btn-block mt-5" [disabled]="cardForm.invalid">ADD AMMOUNT</button>
+          <p class="text-center mt-3"><a [routerLink]="['/']">Back to List</a></p>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+
+  <pre>
+
+    {{ cardForm.value | json }}
+
+  </pre>

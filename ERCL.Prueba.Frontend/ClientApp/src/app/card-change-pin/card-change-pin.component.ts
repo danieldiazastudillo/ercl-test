@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import { Card } from '../model/card.interface';
 import { CardService } from '../services/card.service';
+import { pinValidator } from '../validators/pin.validator';
 
 @Component({
   selector: 'app-card-change-pin',
@@ -13,7 +14,8 @@ export class CardChangePinComponent implements OnInit {
 
   constructor(private _fb: FormBuilder,
               private _cardSvc: CardService,
-              private _route: ActivatedRoute) { }
+              private _route: ActivatedRoute,
+              private _router: Router) { }
 
   cardID: string;
 
@@ -24,7 +26,7 @@ export class CardChangePinComponent implements OnInit {
 
   private _createForm(): FormGroup {
     const obj: FormGroup = this._fb.group({
-      pin: [null, [Validators.required]]
+      pin: ['', [Validators.required, pinValidator()]]
     });
 
     return obj;
@@ -44,8 +46,9 @@ export class CardChangePinComponent implements OnInit {
     const newPin = this.pin.value;
 
     this._cardSvc.patchCardPin(this.cardID, newPin).subscribe(result => {
-      console.log('Card saved!');
-      this._getCardCurrentInfo(this.cardID);
+      console.log('Card updated!');
+      console.log(result);
+      this._router.navigate(['/']);
     });
 
   }

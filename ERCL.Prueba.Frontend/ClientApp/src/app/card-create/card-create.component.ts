@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NewCard } from '../model/card-new.model';
 import { CardService } from '../services/card.service';
+import { matchValidator } from '../validators/match.validator';
+import { pinValidator } from '../validators/pin.validator';
 
 @Component({
   selector: 'app-card-create',
@@ -10,7 +13,9 @@ import { CardService } from '../services/card.service';
 })
 export class CardCreateComponent implements OnInit {
 
-  constructor(private _fb: FormBuilder, private _cardSvc: CardService) { }
+  constructor(private _fb: FormBuilder,
+              private _cardSvc: CardService,
+              private _router: Router) { }
 
   cardForm: FormGroup;
   name: AbstractControl;
@@ -20,10 +25,10 @@ export class CardCreateComponent implements OnInit {
 
   private _createForm(): FormGroup {
     const obj: FormGroup = this._fb.group({
-      name: [null, [Validators.required]],
-      pan: [null, [Validators.required]],
-      pin: [null, [Validators.required]],
-      confirmPin: [null, [Validators.required]]
+      name: ['', [Validators.required]],
+      pan: ['', [Validators.required]],
+      pin: ['', [Validators.required, pinValidator()]],
+      confirmPin: ['', [Validators.required, pinValidator(), matchValidator('pin')]]
     });
 
     return obj;
@@ -38,9 +43,9 @@ export class CardCreateComponent implements OnInit {
 
   private _prepareFormData(form: FormGroup): NewCard {
     const model: NewCard = {
-      name: this.name.value as string,
-      pan: this.pan.value as string,
-      pin: this.pin.value as string,
+      name: this.name.value,
+      pan: this.pan.value,
+      pin: this.pin.value,
       confirmPin: this.confirmPin.value as string
     };
 
@@ -52,6 +57,7 @@ export class CardCreateComponent implements OnInit {
 
     this._cardSvc.postNewCard(card).subscribe(result => {
       console.log('Card saved!');
+      this._router.navigate(['/']);
     });
 
   }
