@@ -22,6 +22,8 @@ namespace ERCL.Prueba.Domain
         public decimal Amount { get; set; } = 0;
 
         [Required]
+        [RegularExpression(@"^(\d{4})$", ErrorMessage = "Please enter a 4 digit PIN")]
+        [StringLength(4, MinimumLength = 4)]
         [DataType(DataType.Password)]
         public string Pin { get; set; }
 

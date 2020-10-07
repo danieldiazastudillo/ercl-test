@@ -73,13 +73,13 @@ namespace ERCL.Prueba.WebApi.Controllers
         /// <summary>
         /// Updates password for a given Card GUID
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        [HttpPatch("update/{id}/password")]
-        public IActionResult UpdateCardPassword(Guid id, [FromBody] string password)
+        /// <param name="id">Card GUID</param>
+        /// <param name="pin">New Card PIN</param>
+        /// <returns>Patched Card Entity</returns>
+        [HttpPatch("update/{id}/pin")]
+        public IActionResult UpdateCardPassword(Guid id, [FromBody] string pin)
         {
-            if (id == Guid.Empty || string.IsNullOrEmpty(password))
+            if (id == Guid.Empty || string.IsNullOrEmpty(pin))
             {
                 return BadRequest("Invalid arguments. Check request parameters.");
             }
@@ -91,10 +91,10 @@ namespace ERCL.Prueba.WebApi.Controllers
                 return NotFound($"Card with ID {id} not found");
             }
 
-            card.Pin = password;
+            card.Pin = pin;
             CardService.UpdateCard(card);
 
-            return Ok("Card password updated successfully");
+            return Ok(card);
         }
 
 
@@ -124,7 +124,7 @@ namespace ERCL.Prueba.WebApi.Controllers
 
             CardService.UpdateCard(card);
 
-            return Ok();
+            return Ok(card);
         }
 
         /// <summary>

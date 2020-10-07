@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ERCL.Prueba.Domain\ERCL.Prueba.Domain.csproj" />
+    <ProjectReference Include="..\ERCL.Prueba.Helpers\ERCL.Prueba.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

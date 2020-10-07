@@ -14,6 +14,8 @@ namespace ERCL.Prueba.Helpers
         private readonly ICryptoTransform encryptor;
         private readonly ICryptoTransform decryptor;
 
+        public FileProcesorConfiguration Configuration { get; set; }
+
         public FileProcesor(FileProcesorConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,7 +32,7 @@ namespace ERCL.Prueba.Helpers
             decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes);
         }
 
-        public FileProcesorConfiguration Configuration { get; }
+     
 
         public string GetCsv<T>(IEnumerable<T> items)
         {

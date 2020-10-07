@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text;
 
 namespace ERCL.Prueba.WebApi
 {
@@ -28,9 +29,13 @@ namespace ERCL.Prueba.WebApi
 
             services.AddScoped<CardService>();
             services.AddScoped<IGenericRepository<Card>, GenericRepository<Card>>();
-            services.AddScoped<IFileProcesor, FileProcesor>(); // Added FileProcessor from Helpers namespace
 
-            
+
+            var fpConfig = new FileProcesorConfiguration();
+            Configuration.Bind("FileProcesor", fpConfig);
+            services.AddSingleton(fpConfig);
+
+
             services.AddSwaggerGen();
             services.AddDbContext<PruebaContext>(
                 options => options

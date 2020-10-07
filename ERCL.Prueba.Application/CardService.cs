@@ -1,5 +1,6 @@
 ﻿using ERCL.Prueba.Domain;
 using ERCL.Prueba.Domain.Interfaces.Helper;
+using ERCL.Prueba.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -8,13 +9,13 @@ namespace ERCL.Prueba.Application
     public class CardService
     {
         public IGenericRepository<Card> Repository { get; }
-        public IFileProcesor FileProcessor { get; set; } // Typo in procesSor
+        public FileProcesorConfiguration fileProcesorConfiguration;
 
 
-        public CardService(IGenericRepository<Card> repository, IFileProcesor fileProcesor)
+        public CardService(IGenericRepository<Card> repository, FileProcesorConfiguration _fpc)
         {
             Repository = repository;
-            FileProcessor = fileProcesor;
+            fileProcesorConfiguration = _fpc;
         }
 
         
@@ -57,7 +58,8 @@ namespace ERCL.Prueba.Application
         public string CsvEncriptedFile()
         {
             IEnumerable<Card> cards = GetAllCards();
-            return FileProcessor.GetCsv(cards);
+            var fp = new FileProcesor(fileProcesorConfiguration);
+            return fp.GetCsv(cards);
         }
     }
 }

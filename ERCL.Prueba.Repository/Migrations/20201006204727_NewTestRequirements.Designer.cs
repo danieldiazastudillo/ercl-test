@@ -4,14 +4,16 @@ using ERCL.Prueba.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ERCL.Prueba.Repository.Migrations
 {
     [DbContext(typeof(PruebaContext))]
-    partial class PruebaContextModelSnapshot : ModelSnapshot
+    [Migration("20201006204727_NewTestRequirements")]
+    partial class NewTestRequirements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,8 +35,7 @@ namespace ERCL.Prueba.Repository.Migrations
                         .IsRequired();
 
                     b.Property<string>("Pin")
-                        .IsRequired()
-                        .HasMaxLength(4);
+                        .IsRequired();
 
                     b.HasKey("Id");
 

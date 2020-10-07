@@ -7,7 +7,7 @@ namespace ERCL.Prueba.WebApi.Model.Card
     /// </summary>
     public class CreateCardModel
     {
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
         
         [Required]
@@ -15,6 +15,8 @@ namespace ERCL.Prueba.WebApi.Model.Card
 
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(\d{4})$", ErrorMessage = "Please enter a 4 digit PIN")]
+        [StringLength(4, MinimumLength = 4)]
         public string Pin { get; set; }
 
         [DataType(DataType.Password)]        
