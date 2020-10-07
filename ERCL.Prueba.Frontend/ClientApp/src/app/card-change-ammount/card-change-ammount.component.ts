@@ -13,8 +13,7 @@ export class CardChangeAmmountComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _cardSvc: CardService,
-    private _route: ActivatedRoute,
-    private _router: Router
+    private _route: ActivatedRoute
   ) {}
 
   cardID: string;
