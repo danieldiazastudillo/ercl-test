@@ -1,3 +1,22 @@
-<p>
-  card-detail works!
-</p>
+<div class="row mt-5">
+  <div class="col-5 mx-auto">
+    <div class="card text-center">
+      <div class="card-header">
+        CARD DETAILS
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{currentCard?.name}}</h5>
+        <p class="card-text">{{currentCard?.id}}</p>
+        <p class="card-text"><strong>PAN:</strong> {{currentCard?.pan}}</p>
+      </div>
+      <ul class="list-group list-group-flush" *ngIf="currentCard">
+        <li class="list-group-item"><a [routerLink]="['/update/pin', currentCard.id]">Change PIN</a></li>
+        <li class="list-group-item"><a [routerLink]="['/update/ammount', currentCard.id]">Update Ammount</a></li>
+        <li class="list-group-item"><a [routerLink]="['/']">Back to Card List</a></li>
+      </ul>
+      <div class="card-footer text-muted">
+        <h4>{{currentCard?.amount | currency}}</h4>
+      </div>
+    </div>
+  </div>
+</div>

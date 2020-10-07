@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -30,11 +30,15 @@ import { CardCreateComponent } from './card-create/card-create.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'detail', component: CardDetailComponent }
+      { path: 'new', component: CardCreateComponent },
+      { path: 'detail/:id', component: CardDetailComponent },
+      { path: 'update/pin/:id', component: CardChangePinComponent },
+      { path: 'update/ammount/:id', component: CardChangeAmmountComponent }
     ])
   ],
   providers: [],

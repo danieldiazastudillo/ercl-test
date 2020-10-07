@@ -43,6 +43,13 @@ namespace ERCL.Prueba.WebApi
                     .EnableSensitiveDataLogging()
                     .EnableDetailedErrors()
             );
+
+            // CORS policy to communicate Angular app with WebApi project
+            services.AddCors(options =>
+            {
+                options.AddPolicy("PublicPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +70,9 @@ namespace ERCL.Prueba.WebApi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // CORS configuration
+            app.UseCors("PublicPolicy");
 
             app.UseHttpsRedirection();
             app.UseMvc();

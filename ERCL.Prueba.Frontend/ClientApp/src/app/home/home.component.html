@@ -1,4 +1,12 @@
-<div class="row">
+<div class="row mt-5">
+  <div class="col-12">
+    <h1 class="display-4">Cards List</h1>
+    <a [routerLink]="['/new']" class="btn btn-success">ADD NEW CARD</a>
+    <hr>
+  </div>
+</div>
+
+<div class="row mt-5">
   <div class="col-12">
     <table class="table table-hover">
       <thead>
@@ -7,16 +15,20 @@
           <th scope="col">NAME</th>
           <th scope="col">PAN</th>
           <th scope="col">AMMOUNT</th>
-          <th scope="col">ACTIONS</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let card of cards$ | async; index as i">
-          <th scope="row">{{i}}</th>
+          <th scope="row">{{i + 1}}</th>
           <td>{{card.name}}</td>
           <td>{{card.pan}}</td>
           <td>{{card.amount | currency}}</td>
-          <td>DETAILS | CHANGE PIN</td>
+          <td><a [routerLink]="['/update/ammount', card.id]">CHANGE AMMOUNT</a></td>
+          <td><a [routerLink]="['/update/pin', card.id]">CHANGE PIN</a></td>
+          <td><a [routerLink]="['/detail', card.id]">DETAIL</a></td>
         </tr>
       </tbody>
     </table>
